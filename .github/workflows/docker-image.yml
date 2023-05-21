@@ -3,19 +3,20 @@ name: Docker Image CI
 on: workflow_dispatch
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Build the Docker image
-      run: echo "$[{ secrets.DOCKERPW }]" | docker login -u  "santhosh955" --password-stdin
-    - name : image
-      run: docker image build -t santhosh955/javaapp:v1 .
-    - name : push
-      run: docker push santhosh955/javaapp:v1
+      - uses: actions/checkout@v3
+      - uses: actions/docker/login@master
+        with: # Set the secret as an input
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        env: # Set the secret in the env
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    
+      - name : image
+        run: docker image build -t santhosh955/javaapp:v1 .
+      - name : push
+        run: docker push santhosh955/javaapp:v1
 
