@@ -14,7 +14,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: |
-          echo "$[{ secrets.DOCKERPW }]" | docker login -u  "santhosh955" --password-stdin
-          docker image build -t santhosh955/javaapp:v1 .
-		      docker push santhosh955/javaapp:v1
+         echo "$[{ secrets.DOCKERPW }]" | docker login -u  "santhosh955" --password-stdin
+         docker image build -t santhosh955/javaapp:v1 .
+	 docker push santhosh955/javaapp:v1
 
